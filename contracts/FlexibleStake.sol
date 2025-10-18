@@ -103,9 +103,6 @@ contract FlexibleStake is AccessControl, Pausable{
         if(withdrawAmount > user.amount){
             revert Errors.InfufficientBal();
         }
-        if(uint48(block.timestamp) < pool.periodEnd){
-            revert Errors.InvalidTime();
-        }
         user.amount -= withdrawAmount;
         pool.totalStaked -= withdrawAmount;
         IERC20(pool.token).safeTransfer(msg.sender, withdrawAmount);
